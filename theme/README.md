@@ -1,0 +1,1 @@
+Central theme definitions like color palette, grid step etc.
