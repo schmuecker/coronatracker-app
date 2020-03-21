@@ -6,7 +6,7 @@ export default class Welcome extends Component {
     return (
         <View style={styles.container}>
             <View style={styles.content}>
-              <Text style={styles.title}>Titel</Text>
+              <Text style={styles.title}>Hallo Minouk!</Text>
             </View>
             <View style={styles.actions}>
               <Button style={styles.button} title="Zurück" />
@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '90%',
-    margin: '2em'
+    margin: 20
   }
 });
