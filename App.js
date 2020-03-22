@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import { Onboarding } from './views';
+import { Welcome } from './views/Onboarding';
 
 const Stack = createStackNavigator();
 
@@ -18,7 +18,11 @@ export default class App extends Component {
       // Navigation example: https://reactnative.dev/docs/navigation.html#usage
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Onboarding" component={Onboarding} />
+          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="Intro" component={Intro} />
+          <Stack.Screen name="LocationPermission" component={LocationPermission} />
+          <Stack.Screen name="NotificationsPermission" component={NotificationsPermission} />
+          <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
       </NavigationContainer>
     );
