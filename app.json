@@ -13,5 +13,13 @@
       "android",
       "web"
     ]
+  },
+  "ios": {
+    "infoPlist": {
+      "NSCameraUsageDescription": "This app uses the camera to scan barcodes on printed tracker cards.",
+      "NSLocationWhenInUseUsageDescription": "This app uses your location to help you to track your movements while using the app.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "This app uses your location to help you to track your movements while using the app and in the background.", 
+      "NSLocationAlwaysUsageDescription": "This app uses your location to help you to track your movements in the background."
+    }
   }
 }
