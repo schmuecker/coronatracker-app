@@ -4,8 +4,10 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import { Welcome } from './views/Onboarding';
+import { Login } from './views/Onboarding';
 
 const Stack = createStackNavigator();
+
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -14,6 +16,7 @@ const instructions = Platform.select({
 
 export default class App extends Component {
   render() {
+
     return (
       // Navigation example: https://reactnative.dev/docs/navigation.html#usage
       <NavigationContainer>
@@ -35,15 +38,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
 });
