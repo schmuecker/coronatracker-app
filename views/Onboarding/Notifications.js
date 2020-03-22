@@ -1,45 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Platform, StyleSheet, Text, View } from 'react-native';
+import {
+  Button, Platform, StyleSheet, Text, View,
+} from 'react-native';
 import * as Permissions from 'expo-permissions';
 
 async function askForPermission() {
-    const permission = await Permissions.askAsync(
-        Permissions.NOTIFICATIONS
-    );
-    if (permission.granted === true) {
-        return true;
-    }
-    return false
+  const permission = await Permissions.askAsync(
+    Permissions.NOTIFICATIONS,
+  );
+  if (permission.granted === true) {
+    return true;
+  }
+  return false;
 }
 
-const Notifications = () => {
+const Notifications = ({ navigateToNext = () => {} }) => {
+  useEffect(() => {
+    const getPermission = async () => {
+      const isGranted = await askForPermission();
+      if (isGranted) { navigateToNext(); }
+    };
+    getPermission();
+  }, []);
 
-    const [isGranted, setIsGranted] = useState(false);
-
-    useEffect(() => {
-        const getPermission = async () => {
-            setIsGranted(await askForPermission());
-        }
-        getPermission();
-    }, [])
-
-    return (
-      <View style={styles.container}>
-          <View style={styles.content}>
-              {!isGranted && <>
-                <Text style={styles.title}>Wir möchten Infektionsketten unterbrechen und im Ernstfall schnell reagieren. Dazu würden wir Dir eine Push Nachricht schicken, sobald du Kontakt mit einer infizierten Person hattest.</Text>
-                <Button style={styles.button} title="Benachrichtigungen aktivieren" />
-              </>}
-              {isGranted &&
-              <Text style={styles.title}>Mitteilungen sind aktiviert 👍</Text>}
-          </View>
-          <View style={styles.actions}>
-            <Button style={styles.button} title="Zurück" />
-            <Button style={styles.button} title="Weiter" />
-          </View>
+  return (
+    <View style={styles.container}>
+      <View style={styles.content}>
+        <Text style={styles.title}>Wir möchten Infektionsketten unterbrechen und im Ernstfall schnell reagieren. Dazu würden wir Dir eine Push Nachricht schicken, sobald du Kontakt mit einer infizierten Person hattest.</Text>
+        <Button style={styles.button} title="Benachrichtigungen aktivieren" />
       </View>
-    );
-}
+      <View style={styles.actions}>
+        <Button style={styles.button} title="Zurück" />
+        <Button style={styles.button} title="Weiter" />
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -52,7 +48,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   title: {
     fontSize: 20,
@@ -63,8 +59,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '90%',
-    margin: 20
-  }
+    margin: 20,
+  },
 });
 
 export default Notifications;

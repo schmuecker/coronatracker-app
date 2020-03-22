@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
-export default class Welcome extends Component {
-  render() {
+const Welcome = ({ navigateToNext = () => {}, navigateToPrevious }) => {
+  console.log(navigateToPrevious)
     return (
         <View style={styles.container}>
             <View style={styles.content}>
               <Text style={styles.title}>Titel!</Text>
             </View>
             <View style={styles.actions}>
-              <Button style={styles.button} title="Zurück" />
-              <Button style={styles.button} title="Weiter" />
+              <Button style={styles.button} title="Zurück" onPress={navigateToPrevious} disabled={!navigateToPrevious} />
+              <Button style={styles.button} title="Weiter" onPress={navigateToNext} />
             </View>
         </View>
     );
-  }
 }
 
 const styles = StyleSheet.create({
@@ -42,3 +41,5 @@ const styles = StyleSheet.create({
     margin: 20
   }
 });
+
+export default Welcome;

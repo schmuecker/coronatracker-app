@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Platform, StyleSheet, Text, View } from 'react-native';
+import {
+  Button, Platform, StyleSheet, Text, View,
+} from 'react-native';
 import Constants from 'expo-constants';
 import * as ExpoLocation from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
 
-export default Location = () => {
-
+export default function Location({ navigateToNext = () => {} }) {
   const [error, setError] = useState(undefined);
   const [location, setLocation] = useState(undefined);
 
   // This tests the location permission and gets the current position.
   // Use this method to track the location in the background: https://docs.expo.io/versions/latest/sdk/location/#locationstartlocationupdatesasynctaskname-options
   const getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
       setError('Permission to access location was denied');
     }
-  
-    let location = await ExpoLocation.getCurrentPositionAsync({});
-    setLocation(location);
+
+    const currentPosition = await ExpoLocation.getCurrentPositionAsync({});
+    setLocation(currentPosition);
+    navigateToNext();
   };
 
   useEffect(() => {
@@ -31,30 +33,32 @@ export default Location = () => {
   }, []);
 
   return (
-      <View style={styles.container}>
-          <View style={styles.content}>
-            {
-              !location && 
+    <View style={styles.container}>
+      <View style={styles.content}>
+        {
+              !location
+              && (
               <>
-              <Text style={styles.title}>Einige Funktionen sind ohne vollständigen Standortzugriff nicht verfügbar.</Text>
-              <Text style={styles.title}>Erlauben Sie den Standortzugriff, um die App in vollem Umfang nutzen können.</Text>
-              <Button style={styles.button} title="Standortzugriff erlauben" />
+                <Text style={styles.title}>Einige Funktionen sind ohne vollständigen Standortzugriff nicht verfügbar.</Text>
+                <Text style={styles.title}>Erlauben Sie den Standortzugriff, um die App in vollem Umfang nutzen können.</Text>
+                <Button style={styles.button} title="Standortzugriff erlauben" />
               </>
+              )
             }
-            {
-              location &&
-              <Text style={styles.title}>Standortzugriff erlaubt 👍</Text>
+        {
+              location
+              && <Text style={styles.title}>Standortzugriff erlaubt 👍</Text>
             }
-            {
-              error &&
-              <Text style={styles.title}>{error}</Text>
+        {
+              error
+              && <Text style={styles.title}>{error}</Text>
             }
-          </View>
-          <View style={styles.actions}>
-            <Button style={styles.button} title="Zurück" />
-            <Button style={styles.button} title="Weiter" />
-          </View>
       </View>
+      <View style={styles.actions}>
+        <Button style={styles.button} title="Zurück" />
+        <Button style={styles.button} title="Weiter" />
+      </View>
+    </View>
   );
 }
 
@@ -69,7 +73,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   title: {
     fontSize: 20,
@@ -80,6 +84,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '90%',
-    margin: 20
-  }
+    margin: 20,
+  },
 });
